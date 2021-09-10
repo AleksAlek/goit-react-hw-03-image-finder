@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./Button.module.css";
+import s from "./Button.module.css";
 
 class Button extends Component {
   state = {
@@ -22,7 +22,7 @@ class Button extends Component {
     const { handleOneMorePage } = this;
 
     return (
-      <button type="button" onClick={handleOneMorePage}>
+      <button className={s.button} type="button" onClick={handleOneMorePage}>
         Load More
       </button>
     );

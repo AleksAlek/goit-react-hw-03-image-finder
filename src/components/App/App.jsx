@@ -9,7 +9,7 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 
-import "./App.css";
+import s from "./App.module.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class App extends Component {
@@ -20,6 +20,16 @@ class App extends Component {
     isLoaded: true,
     isModalOpened: false,
   };
+
+  componentDidUpdate(prevProp, prevState) {
+    const { images } = this.state;
+
+    if (images.length > 12)
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+  }
 
   fetchImages = (requestedImages, updatedPageNumber) => {
     const apiKey = "22716086-2fdd68696acd66b897a29f84e";
@@ -59,11 +69,6 @@ class App extends Component {
     const { queryString } = this.state;
 
     this.fetchImages(queryString, updatedPageNumber);
-
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
   };
 
   handleOpenModal = (imageId) => {
@@ -108,7 +113,7 @@ class App extends Component {
     const isButtonVisible = images.length > 0;
 
     return (
-      <>
+      <div className={s.mainContainer}>
         <Searchbar
           fetchImages={fetchImages}
           queryString={queryString}
@@ -136,7 +141,7 @@ class App extends Component {
             handleCLoseModal={handleCLoseModal}
           />
         )}
-      </>
+      </div>
     );
   }
 }

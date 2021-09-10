@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 
+import s from "./Modal.module.css";
+
 class Modal extends Component {
   handleClickOnOverlay = (e) => {
     const { handleCLoseModal } = this.props;
+    const { className } = e.target;
 
-    if (e.target.className === "Overlay") {
+    if (className.includes("overlay")) {
       handleCLoseModal();
     }
   };
@@ -14,8 +17,8 @@ class Modal extends Component {
     const { largeImageURL, tags } = props;
 
     return (
-      <div className="Overlay" onClick={handleClickOnOverlay}>
-        <div className="Modal">
+      <div className={s.overlay} onClick={handleClickOnOverlay}>
+        <div className={s.modal}>
           <img src={largeImageURL} alt={tags} />
         </div>
       </div>

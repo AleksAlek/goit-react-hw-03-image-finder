@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./Searchbar.module.css";
+import s from "./Searchbar.module.css";
 
 class Searchbar extends Component {
   state = {
@@ -33,14 +33,14 @@ class Searchbar extends Component {
     const { requestedImages } = state;
 
     return (
-      <header className="Searchbar">
-        <form className="SearchForm" onSubmit={handleFetchImages}>
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
+      <header className={s.searchbar}>
+        <form className={s.searchForm} onSubmit={handleFetchImages}>
+          <button type="submit" className={s.searchForm__button}>
+            <span className={s.searchForm__buttonLabel}>Search</span>
           </button>
 
           <input
-            className="SearchForm-input"
+            className={s.searchForm__input}
             type="text"
             autoComplete="off"
             autoFocus
