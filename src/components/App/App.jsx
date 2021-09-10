@@ -16,6 +16,7 @@ class App extends Component {
   state = {
     images: [],
     currentImage: {},
+    pageNumber: 0,
     queryString: "",
     isLoaded: true,
     isModalOpened: false,
@@ -33,11 +34,13 @@ class App extends Component {
   }
 
   fetchImages = (requestedImages, updatedPageNumber) => {
+    this.setState({ isButtonVisible: false });
+
     const apiKey = "22716086-2fdd68696acd66b897a29f84e";
     const url = `https://pixabay.com/api/?q=${requestedImages}&page=${updatedPageNumber}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
     if (requestedImages) {
-      this.setState({ isLoaded: false, isButtonVisible: false });
+      this.setState({ isLoaded: false, pageNumber: updatedPageNumber });
 
       axios
         .get(url)
@@ -110,6 +113,7 @@ class App extends Component {
     } = this;
     const {
       images,
+      pageNumber,
       isLoaded,
       isModalOpened,
       currentImage,
@@ -138,7 +142,9 @@ class App extends Component {
           <ImageGallery images={images} handleOpenModal={handleOpenModal} />
         )}
 
-        {isButtonVisible && <Button loadMoreImages={loadMoreImages} />}
+        {isButtonVisible && (
+          <Button loadMoreImages={loadMoreImages} pageNumber={pageNumber} />
+        )}
 
         {isModalOpened && (
           <Modal
