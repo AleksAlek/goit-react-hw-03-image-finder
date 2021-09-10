@@ -19,6 +19,7 @@ class App extends Component {
     queryString: "",
     isLoaded: true,
     isModalOpened: false,
+    isButtonVisible: false,
   };
 
   componentDidUpdate(prevProp, prevState) {
@@ -36,7 +37,7 @@ class App extends Component {
     const url = `https://pixabay.com/api/?q=${requestedImages}&page=${updatedPageNumber}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
     if (requestedImages) {
-      this.setState({ isLoaded: false });
+      this.setState({ isLoaded: false, isButtonVisible: false });
 
       axios
         .get(url)
@@ -58,6 +59,7 @@ class App extends Component {
               images: updatedImagesArray,
               queryString: requestedImages,
               isLoaded: true,
+              isButtonVisible: true,
             };
           })
         )
@@ -106,11 +108,15 @@ class App extends Component {
       resetImagesArray,
       state,
     } = this;
-    const { images, isLoaded, isModalOpened, currentImage, queryString } =
-      state;
+    const {
+      images,
+      isLoaded,
+      isModalOpened,
+      currentImage,
+      queryString,
+      isButtonVisible,
+    } = state;
     const { largeImageURL, tags } = currentImage;
-
-    const isButtonVisible = images.length > 0;
 
     return (
       <div className={s.mainContainer}>
